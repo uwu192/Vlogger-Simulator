@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public enum FragmentTheme
-{
-    Food,       // Ẩm thực
-    Landscape,  // Phong cảnh
-    People,     // Con người
-    DailyLife   // Đời thường
-}
+//public enum FragmentTheme
+//{
+//    Food,       // Ẩm thực
+//    Landscape,  // Phong cảnh
+//    People,     // Con người
+//    DailyLife   // Đời thường
+//}
 
 public enum FragmentRarity
 {
@@ -20,7 +20,7 @@ public class FragmentData : ScriptableObject
 {
     [Header("Đặc tính Mảnh Cảnh Quay")]
     public string fragmentName;
-    public FragmentTheme theme;
+    //public FragmentTheme theme;
     public FragmentRarity rarity;
 
     public int GetBaseScore()
