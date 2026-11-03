@@ -370,6 +370,26 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7029083225010635171, guid: 6d13cc7d4459f594d81992fae626e6d4, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 0.40625
+      objectReference: {fileID: 0}
+    - target: {fileID: 7029083225010635171, guid: 6d13cc7d4459f594d81992fae626e6d4, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7167944891053122783, guid: 6d13cc7d4459f594d81992fae626e6d4, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.29
+      objectReference: {fileID: 0}
+    - target: {fileID: 7167944891053122783, guid: 6d13cc7d4459f594d81992fae626e6d4, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2.29
+      objectReference: {fileID: 0}
+    - target: {fileID: 7167944891053122783, guid: 6d13cc7d4459f594d81992fae626e6d4, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2.29
+      objectReference: {fileID: 0}
     - target: {fileID: 7167944891053122783, guid: 6d13cc7d4459f594d81992fae626e6d4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.57181
@@ -410,6 +430,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7167944891053122783, guid: 6d13cc7d4459f594d81992fae626e6d4, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7974069907151262069, guid: 6d13cc7d4459f594d81992fae626e6d4, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -5038391777132142415, guid: 67c935d6d99aa604c89c21e844136f3a, type: 3}
     - target: {fileID: 7974069907151262069, guid: 6d13cc7d4459f594d81992fae626e6d4, type: 3}
       propertyPath: m_SortingOrder
       value: 1
@@ -425,7 +453,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8883276150926889567, guid: 6d13cc7d4459f594d81992fae626e6d4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1948605799}
+    - targetCorrespondingSourceObject: {fileID: 8883276150926889567, guid: 6d13cc7d4459f594d81992fae626e6d4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1948605800}
   m_SourcePrefab: {fileID: 100100000, guid: 6d13cc7d4459f594d81992fae626e6d4, type: 3}
 --- !u!1 &1232111655
 GameObject:
@@ -4089,6 +4123,51 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!1 &1948605793 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8883276150926889567, guid: 6d13cc7d4459f594d81992fae626e6d4, type: 3}
+  m_PrefabInstance: {fileID: 838062320}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1948605799
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1948605793}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6de7d9866ce90924a939bbe50934edbd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!320 &1948605800
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1948605793}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: c486c1a1fe0893746864e6858c79e741, type: 2}
+  m_InitialState: 1
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings: []
+  m_ExposedReferences:
+    m_References:
+    - 29593434c4406cf4ab9de40e7227fd41: {fileID: 1948605793}
 --- !u!1001 &3598596349738324098
 PrefabInstance:
   m_ObjectHideFlags: 0
