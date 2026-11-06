@@ -1,13 +1,5 @@
 using UnityEngine;
 
-//public enum FragmentTheme
-//{
-//    Food,       // Ẩm thực
-//    Landscape,  // Phong cảnh
-//    People,     // Con người
-//    DailyLife   // Đời thường
-//}
-
 public enum FragmentRarity
 {
     Common,
@@ -20,8 +12,10 @@ public class FragmentData : ScriptableObject
 {
     [Header("Đặc tính Mảnh Cảnh Quay")]
     public string fragmentName;
-    //public FragmentTheme theme;
     public FragmentRarity rarity;
+    public Sprite commonImage;
+    public Sprite rareImage;
+    public Sprite epicImage;
 
     public int GetBaseScore()
     {
@@ -35,6 +29,20 @@ public class FragmentData : ScriptableObject
                 return 100;
             default:
                 return 0;
+        }
+    }
+    public Sprite GetImage()
+    {
+        switch (rarity)
+        {
+            case FragmentRarity.Common:
+                return commonImage;
+            case FragmentRarity.Rare:
+                return rareImage;
+            case FragmentRarity.Epic:
+                return epicImage;
+            default:
+                return null;
         }
     }
 }
