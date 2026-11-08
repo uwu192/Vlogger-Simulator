@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d78a45e3f2de982449d1495760d810bc, type: 3}
+  m_Name: Phone
+  m_EditorClassIdentifier: Assembly-CSharp::CameraData
+  itemID: Phone
+  itemName: Phone
+  price: 100
+  icon: {fileID: 3894415531740123212, guid: fd5ad802f22d14e498c729da01d86693, type: 3}
+  prefab: {fileID: 8994905695906956044, guid: 45dca961763fde44da5116faa3c00a7b, type: 3}
+  resolutionBonus: 3
+  viewMultiplier: 3
