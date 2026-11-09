@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: 7077e2300f4d02148b8943a049de7577
+guid: 0e07a92064f726541b3c09de7785fd94
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6131382249748973623
-    second: HaNoi_right_0
-  - first:
-      213: 1504509186392344167
-    second: HaNoi_right_1
+      213: -1225456093375103456
+    second: HaNoi_Foreground_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -105,13 +102,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: HaNoi_right_0
+      name: HaNoi_Foreground_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 9
-        width: 1792
-        height: 1183
+        y: 0
+        width: 4096
+        height: 873
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -120,30 +117,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7384c62bbab071550800000000000000
-      internalID: 6131382249748973623
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: HaNoi_right_1
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 1
-        width: 1792
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7664a30422711e410800000000000000
-      internalID: 1504509186392344167
+      spriteID: 02ef9820d2e4efee0800000000000000
+      internalID: -1225456093375103456
       vertices: []
       indices: 
       edges: []
@@ -162,8 +137,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      HaNoi_right_0: 6131382249748973623
-      HaNoi_right_1: 1504509186392344167
+      HaNoi_Foreground_0: -1225456093375103456
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

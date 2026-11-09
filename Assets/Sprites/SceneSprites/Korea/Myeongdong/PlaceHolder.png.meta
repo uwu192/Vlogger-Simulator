@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 5a1b6482fabeff74387dc254f38a515e
+guid: 858c10b2ccddcf4479610a688869d0b1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3804357537617394308
-    second: HaNoi_middle_0
+      213: -2683667644670979637
+    second: PlaceHolder_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -102,13 +102,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: HaNoi_middle_0
+      name: PlaceHolder_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1792
-        height: 1192
+        width: 1919
+        height: 486
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -117,8 +117,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c754cb3d9f4343bc0800000000000000
-      internalID: -3804357537617394308
+      spriteID: bc15d20fe72b1cad0800000000000000
+      internalID: -2683667644670979637
       vertices: []
       indices: 
       edges: []
@@ -137,7 +137,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      HaNoi_middle_0: -3804357537617394308
+      PlaceHolder_0: -2683667644670979637
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

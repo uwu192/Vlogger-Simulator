@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 4821ed57d2a38dc479c2ec6201c40176
+guid: dd316d466e0a84d4a8e881b828b3f5a8
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5991565180781600931
-    second: HaNoi_left_foreground_0
+      213: 6026530711436018444
+    second: Myeongdong_Foreground_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -102,13 +102,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: HaNoi_left_foreground_0
+      name: Myeongdong_Foreground_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1792
-        height: 378
+        width: 1919
+        height: 148
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -117,8 +117,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3a0261989c0562350800000000000000
-      internalID: 5991565180781600931
+      spriteID: c03402b80c982a350800000000000000
+      internalID: 6026530711436018444
       vertices: []
       indices: 
       edges: []
@@ -137,7 +137,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      HaNoi_left_foreground_0: 5991565180781600931
+      Myeongdong_Foreground_0: 6026530711436018444
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
