@@ -276,7 +276,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemSlotUI
   itemIcon: {fileID: 8940485820625499700}
   priceText: {fileID: 6077746352564050083}
-  testItemAsset: {fileID: 0}
 --- !u!1 &4851122110266665122
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,7 +311,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 1, y: 23}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 80, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &182744596470033461
 CanvasRenderer:

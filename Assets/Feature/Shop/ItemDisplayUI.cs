@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ItemDisplayUI : MonoBehaviour
 {
@@ -7,7 +8,8 @@ public class ItemDisplayUI : MonoBehaviour
     public ItemCatalog catalog;            // Kho chứa dữ liệu tổng
     public GameObject itemFramePrefab;     // Prefab của ItemFrame (khung chứa UI)
     public Transform contentTransform;     // Vị trí Content trong Scroll View để sinh ra Grid
-
+    public Button cameraTab;
+    public Button decorTab;
     private void Start()
     {
         // Hiển thị danh sách Camera ngay khi bật Shop lên (dành cho test)
@@ -15,6 +17,12 @@ public class ItemDisplayUI : MonoBehaviour
     }
 
     // Hàm gọi để hiển thị riêng danh sách Camera
+
+    private void Update()
+    {
+        if (cameraTab.IsPressed()) DisplayCameras();
+        else if (decorTab.IsPressed()) DisplayDecor();
+    }
     public void DisplayCameras()
     {
         ClearDisplay(); // Xóa sạch các item cũ trên Grid trước khi tải mới
@@ -38,6 +46,22 @@ public class ItemDisplayUI : MonoBehaviour
         }
     }
 
+    public void DisplayDecor()
+    {
+        ClearDisplay();
+        List<ItemData> decorItems = catalog.allItems.FindAll(item => item.GetType() == typeof(ItemData));
+        foreach (ItemData decorItem in decorItems)
+        {
+            GameObject newFrame = Instantiate(itemFramePrefab, contentTransform);
+
+            ItemSlotUI slotUI = newFrame.GetComponent<ItemSlotUI>();
+            if(slotUI != null)
+            {
+                slotUI.SetupSlot(decorItem);
+            }
+        }
+        
+    }
     // Hàm dọn dẹp các vật phẩm đang hiển thị trong Content
     private void ClearDisplay()
     {

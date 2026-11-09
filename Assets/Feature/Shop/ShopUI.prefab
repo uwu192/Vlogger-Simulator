@@ -583,6 +583,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 994654500041178225, guid: c06e328493a60934987615378561c27e, type: 3}
   m_PrefabInstance: {fileID: 2248348374487491896}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6520746664456910980 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4993898687720791484, guid: c06e328493a60934987615378561c27e, type: 3}
+  m_PrefabInstance: {fileID: 2248348374487491896}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
 --- !u!1001 &2983954994846509847
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -763,7 +774,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5273015961525469237, guid: 7fe80dc6046102247a64af9757fe73bd, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -1.9485
+      value: -1.9484863
       objectReference: {fileID: 0}
     - target: {fileID: 5273015961525469237, guid: 7fe80dc6046102247a64af9757fe73bd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -817,8 +828,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1980779684104987233, guid: 555e6eafb10db7d4cb703b3470041786, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.00007049175
+      value: 0.00008699477
       objectReference: {fileID: 0}
+    - target: {fileID: 3027260417221555264, guid: 555e6eafb10db7d4cb703b3470041786, type: 3}
+      propertyPath: decorTab
+      value: 
+      objectReference: {fileID: 6520746664456910980}
+    - target: {fileID: 3027260417221555264, guid: 555e6eafb10db7d4cb703b3470041786, type: 3}
+      propertyPath: cameraTab
+      value: 
+      objectReference: {fileID: 3239234360185795801}
     - target: {fileID: 3917899025652084901, guid: 555e6eafb10db7d4cb703b3470041786, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1039,3 +1058,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5018832595668050128, guid: 3a21fa182b2beca4a9636d77feb71ec7, type: 3}
   m_PrefabInstance: {fileID: 6568605580102233268}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3239234360185795801 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8636863415135590509, guid: 3a21fa182b2beca4a9636d77feb71ec7, type: 3}
+  m_PrefabInstance: {fileID: 6568605580102233268}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
