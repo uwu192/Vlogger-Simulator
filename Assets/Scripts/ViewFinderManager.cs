@@ -55,13 +55,7 @@ public class ViewFinderManager : MonoBehaviour
         if (cinemachineCamera != null) cinemachineCamera.SetActive(false);
         viewfinderCamera.gameObject.SetActive(true);
 
-        // 3. ÉP TÍNH LẠI BỨC TƯỜNG GIỚI HẠN SAU KHI ĐÃ COPY SIZE
-        // (Dòng này ngăn chặn việc camera bị giật ngược về không gian to)
-        ViewfinderController controller = viewfinderUI.GetComponent<ViewfinderController>();
-        if (controller != null)
-        {
-            controller.CalculateBounds();
-        }
+        // ĐÃ XÓA KHỐI LỆNH GỌI ViewfinderController Ở ĐÂY
 
         isometricUI.SetActive(false);
         viewfinderUI.SetActive(true);

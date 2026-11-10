@@ -373,6 +373,17 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!114 &165044344 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 830999428899952657, guid: d33a8d04c3023bd4aae21d2e076d2f9b, type: 3}
+  m_PrefabInstance: {fileID: 1550644985}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a0fa503110c1c54d9ee236b1856733d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MobileJoystick
 --- !u!1 &496119979
 GameObject:
   m_ObjectHideFlags: 0
@@ -881,6 +892,10 @@ PrefabInstance:
       propertyPath: m_GravityScale
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6637043016258933231, guid: 6d13cc7d4459f594d81992fae626e6d4, type: 3}
+      propertyPath: joystick
+      value: 
+      objectReference: {fileID: 165044344}
     - target: {fileID: 6637043016258933231, guid: 6d13cc7d4459f594d81992fae626e6d4, type: 3}
       propertyPath: moveSpeed
       value: 3
