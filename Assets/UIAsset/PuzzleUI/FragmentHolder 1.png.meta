@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 29ebe0b7b5a0b604288f9a91264c0380
+guid: 2377ccb31e0dddc4ea112df7fe2b5c0c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 327429712690877274
-    second: PressedSubmitButton_0
+      213: 128774454958903036
+    second: FragmentHolder 1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -115,13 +115,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PressedSubmitButton_0
+      name: FragmentHolder 1_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 856
-        height: 109
+        width: 625
+        height: 372
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -130,8 +130,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a5319d1c6934b8400800000000000000
-      internalID: 327429712690877274
+      spriteID: cfe48fb3faf79c100800000000000000
+      internalID: 128774454958903036
       vertices: []
       indices: 
       edges: []
@@ -150,7 +150,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      PressedSubmitButton_0: 327429712690877274
+      FragmentHolder 1_0: 128774454958903036
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

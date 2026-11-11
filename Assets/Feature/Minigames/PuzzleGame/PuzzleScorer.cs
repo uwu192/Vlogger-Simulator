@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public static class PuzzleScorer
 {
     public static int CalculateTotalScore(PuzzleSlot[,] grid, int columns, int rows)
@@ -9,6 +11,8 @@ public static class PuzzleScorer
             for (int y = 0; y < rows; y++)
             {
                 PuzzleSlot slot = grid[x, y];
+
+                // Bỏ qua các ô trống hoặc ô đang chứa mảnh phụ trợ (Catalyst không có điểm gốc)
                 if (slot == null || !slot.IsFilled || slot.IsPlacedCatalyst || slot.PlacedFragmentData == null)
                     continue;
 
@@ -22,51 +26,68 @@ public static class PuzzleScorer
     private static int CalculateSlotScore(PuzzleSlot[,] grid, PuzzleSlot slot, int columns, int rows)
     {
         FragmentData data = slot.PlacedFragmentData;
-        int adjacentCatalysts = CountAdjacentCatalysts(grid, slot.GridX, slot.GridY, columns, rows);
 
-        switch (data.rarity)
-        {
-            case FragmentRarity.Common:
-                return data.GetBaseScore(); // 10 điểm
+        int adjacentCatalystsCount = 0;
+        int cameraCatalystCount = 0;
+        bool hasSoundCatalyst = false;
 
-            case FragmentRarity.Rare:
-                return (adjacentCatalysts >= 1) ? data.GetBaseScore() : 5;
+        // Tọa độ 4 hướng lân cận: Trái, Phải, Dưới, Trên
+        int[] dx = { -1, 1, 0, 0 };
+        int[] dy = { 0, 0, -1, 1 };
 
-            case FragmentRarity.Epic:
-                bool isCorner = IsCornerSlot(slot.GridX, slot.GridY, columns, rows);
-                int requiredCatalysts = isCorner ? 2 : 3;
-                return (adjacentCatalysts >= requiredCatalysts) ? data.GetBaseScore() : 10;
-
-            default:
-                return 0;
-        }
-    }
-
-    private static int CountAdjacentCatalysts(PuzzleSlot[,] grid, int x, int y, int columns, int rows)
-    {
-        int count = 0;
-        int[] dx = { 0, 0, -1, 1 };
-        int[] dy = { 1, -1, 0, 0 };
-
+        // 1. Kiểm tra 4 ô xung quanh
         for (int i = 0; i < 4; i++)
         {
-            int nx = x + dx[i];
-            int ny = y + dy[i];
+            int nx = slot.GridX + dx[i];
+            int ny = slot.GridY + dy[i];
 
             if (nx >= 0 && nx < columns && ny >= 0 && ny < rows)
             {
                 PuzzleSlot neighbor = grid[nx, ny];
-                if (neighbor != null && neighbor.IsFilled && neighbor.IsPlacedCatalyst)
+                if (neighbor != null && neighbor.IsFilled && neighbor.IsPlacedCatalyst && neighbor.PlacedCatalystData != null)
                 {
-                    count++;
+                    adjacentCatalystsCount++;
+
+                    if (neighbor.PlacedCatalystData.catalystType == CatalystType.Sound)
+                    {
+                        hasSoundCatalyst = true;
+                    }
+                    else if (neighbor.PlacedCatalystData.catalystType == CatalystType.Camera)
+                    {
+                        cameraCatalystCount++;
+                    }
                 }
             }
         }
-        return count;
-    }
 
-    private static bool IsCornerSlot(int x, int y, int columns, int rows)
-    {
-        return (x == 0 || x == columns - 1) && (y == 0 || y == rows - 1);
+        // 2. Tính điểm dựa trên độ hiếm và điều kiện
+        int slotScore = 0;
+
+        switch (data.rarity)
+        {
+            case FragmentRarity.Common:
+                slotScore = data.GetBaseScore(); // Mặc định 10
+                break;
+
+            case FragmentRarity.Rare:
+                // Thỏa mãn nếu có Sound Catalyst HOẶC có ít nhất 1 Catalyst bất kỳ
+                bool rareConditionMet = hasSoundCatalyst || (adjacentCatalystsCount >= 1);
+                slotScore = rareConditionMet ? data.GetBaseScore() : 5; // 30 hoặc 5
+
+                // Cộng bonus từ Camera Catalyst
+                slotScore += (cameraCatalystCount * 3);
+                break;
+
+            case FragmentRarity.Epic:
+                // Thỏa mãn nếu có Sound Catalyst HOẶC có ít nhất 2 Catalyst bất kỳ
+                bool epicConditionMet = hasSoundCatalyst || (adjacentCatalystsCount >= 2);
+                slotScore = epicConditionMet ? data.GetBaseScore() : 10; // 100 hoặc 10
+
+                // Cộng bonus từ Camera Catalyst
+                slotScore += (cameraCatalystCount * 3);
+                break;
+        }
+
+        return slotScore;
     }
 }
