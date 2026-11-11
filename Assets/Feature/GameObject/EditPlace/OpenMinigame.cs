@@ -4,15 +4,32 @@ using UnityEngine.InputSystem;
 public class OpenMinigame : MonoBehaviour
 {
     [Header("UI Settings")]
-    [SerializeField] private GameObject minigameUI; // Kéo Canvas/Panel Minigame vào đây
+    [SerializeField] private GameObject minigameUI;
 
+    [Header("Mobile Settings")]
+    [SerializeField] private GameObject interactButton; // Kéo nút bấm Tương tác trên màn hình vào đây
 
     private bool isPlayerInside = false;
 
+    private void Start()
+    {
+        // Đảm bảo nút cảm ứng bị ẩn đi khi vừa vào game
+        if (interactButton != null) interactButton.SetActive(false);
+    }
+
     private void Update()
     {
-        // Chỉ nhận phím bấm khi Player đang đứng trong vùng tương tác
-        if (isPlayerInside && Keyboard.current.eKey.wasPressedThisFrame)
+        // Vẫn giữ phím E để ông bạn của bạn test trên PC cho nhàn
+        if (isPlayerInside && Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
+        {
+            ToggleMinigame();
+        }
+    }
+
+    // HÀM DÀNH RIÊNG CHO MOBILE: Sẽ được gọi khi người chơi bấm nút trên màn hình
+    public void OnMobileInteractTapped()
+    {
+        if (isPlayerInside)
         {
             ToggleMinigame();
         }
@@ -23,6 +40,9 @@ public class OpenMinigame : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerInside = true;
+
+            // Player lại gần -> Bật nút cảm ứng lên cho họ bấm
+            if (interactButton != null) interactButton.SetActive(true);
         }
     }
 
@@ -32,7 +52,9 @@ public class OpenMinigame : MonoBehaviour
         {
             isPlayerInside = false;
 
-            // Tùy chọn: Tự động đóng minigame nếu Player đi ra xa
+            // Player đi ra xa -> Giấu nút cảm ứng đi
+            if (interactButton != null) interactButton.SetActive(false);
+
             if (minigameUI != null)
             {
                 minigameUI.SetActive(false);
@@ -44,7 +66,6 @@ public class OpenMinigame : MonoBehaviour
     {
         if (minigameUI != null)
         {
-            // Bật/tắt minigame UI
             bool currentState = minigameUI.activeSelf;
             minigameUI.SetActive(!currentState);
         }
