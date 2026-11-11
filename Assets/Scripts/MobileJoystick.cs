@@ -5,46 +5,45 @@ public class MobileJoystick : MonoBehaviour, IDragHandler, IPointerUpHandler, IP
 {
     public RectTransform joystickBG;
     public float moveRange = 75f;
-
+    
     public Vector2 MoveInput { get; private set; }
 
     private RectTransform knob;
+    private Vector2 touchStartLocal; // Biến mới: Nhớ vị trí ngón tay lúc vừa chạm
 
     private void Start()
     {
         knob = GetComponent<RectTransform>();
-        // Ép Knob về đúng tâm khi mới vào game
         knob.anchoredPosition = Vector2.zero;
     }
 
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        OnDrag(eventData);
+    public void OnPointerDown(PointerEventData eventData) 
+    { 
+        // 1. Lấy vị trí ngón tay ngay khoảnh khắc chạm vào màn hình làm MỐC
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            joystickBG, eventData.position, eventData.pressEventCamera, out touchStartLocal);
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        // Dịch tọa độ màn hình vật lý về tọa độ UI bên trong khung JoystickBG
         if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            joystickBG, eventData.position, eventData.pressEventCamera, out Vector2 localPoint))
+            joystickBG, eventData.position, eventData.pressEventCamera, out Vector2 currentTouchLocal))
         {
-            // Giới hạn núm không văng ra ngoài khung (dựa theo moveRange)
-            if (localPoint.magnitude > moveRange)
+            // 2. Chỉ tính sự chênh lệch (vuốt đi bao xa) so với mốc ban đầu
+            Vector2 direction = currentTouchLocal - touchStartLocal;
+
+            if (direction.magnitude > moveRange)
             {
-                localPoint = localPoint.normalized * moveRange;
+                direction = direction.normalized * moveRange;
             }
 
-            // Cập nhật vị trí núm bằng tọa độ UI (anchoredPosition)
-            knob.anchoredPosition = localPoint;
-
-            // Truyền tín hiệu (Vector2) từ -1 đến 1 cho nhân vật chạy
-            MoveInput = localPoint / moveRange;
+            knob.anchoredPosition = direction;
+            MoveInput = direction / moveRange;
         }
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        // Thả tay ra tự động bật về giữa
         knob.anchoredPosition = Vector2.zero;
         MoveInput = Vector2.zero;
     }
