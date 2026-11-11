@@ -10,6 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6614ed0f3839edd4f897fdddd7c4348e, type: 3}
-  m_Name: CatalystData
+  m_Name: RecordCatalyst
   m_EditorClassIdentifier: Assembly-CSharp::CatalystData
-  icon: {fileID: 0}
+  catalystType: 1
+  icon: {fileID: -8864662452897023229, guid: 94e44f7f3ab40854286f025ca89e7a40, type: 3}

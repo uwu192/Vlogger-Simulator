@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Phone
   m_EditorClassIdentifier: Assembly-CSharp::CameraData
   itemID: Phone
-  itemName: Phone
+  itemName: Ephone
   price: 100
   icon: {fileID: 3894415531740123212, guid: fd5ad802f22d14e498c729da01d86693, type: 3}
   prefab: {fileID: 8994905695906956044, guid: 45dca961763fde44da5116faa3c00a7b, type: 3}

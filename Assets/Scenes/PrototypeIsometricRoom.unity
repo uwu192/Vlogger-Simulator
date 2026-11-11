@@ -7082,8 +7082,10 @@ EdgeCollider2D:
   m_EdgeRadius: 0
   m_Points:
   - {x: 1.1810778, y: 1.2701641}
-  - {x: 3.2143571, y: 0.20819974}
-  - {x: 4.1749415, y: -0.24102044}
+  - {x: 2.7511742, y: -0.09678966}
+  - {x: 3.0498292, y: -0.095783815}
+  - {x: 3.391617, y: -0.13014677}
+  - {x: 4.533729, y: -0.5466528}
   - {x: 5.2195315, y: -0.76927495}
   - {x: 10.141464, y: -3.1840453}
   m_AdjacentStartPoint: {x: 0, y: 0}
@@ -7657,11 +7659,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6783307497348850551, guid: 3cddbaa1ff19d504eb39ed221f5ee698, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.00025389192
+      value: -7.998993
       objectReference: {fileID: 0}
     - target: {fileID: 6783307497348850551, guid: 3cddbaa1ff19d504eb39ed221f5ee698, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.0007424701
+      value: 0.0010223389
       objectReference: {fileID: 0}
     - target: {fileID: 8029964722272625657, guid: 3cddbaa1ff19d504eb39ed221f5ee698, type: 3}
       propertyPath: m_AnchorMax.y
@@ -11968,7 +11970,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7269071030779405133, guid: 253c2ee52d75db645888a89dc15b9429, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.0000019073486
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8267104482725344333, guid: 253c2ee52d75db645888a89dc15b9429, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -12139,27 +12141,35 @@ PrefabInstance:
       objectReference: {fileID: 71334170}
     - target: {fileID: 144813382382600212, guid: 9301bbbe28e60c04d9fb99c3f2690ea6, type: 3}
       propertyPath: m_Size.x
-      value: 1.7393236
+      value: 0.97974837
       objectReference: {fileID: 0}
     - target: {fileID: 144813382382600212, guid: 9301bbbe28e60c04d9fb99c3f2690ea6, type: 3}
       propertyPath: m_Size.y
-      value: 0.9568274
+      value: 0.5116392
       objectReference: {fileID: 0}
     - target: {fileID: 144813382382600212, guid: 9301bbbe28e60c04d9fb99c3f2690ea6, type: 3}
       propertyPath: m_Offset.x
-      value: -0.0026979446
+      value: -0.070517
       objectReference: {fileID: 0}
     - target: {fileID: 144813382382600212, guid: 9301bbbe28e60c04d9fb99c3f2690ea6, type: 3}
       propertyPath: m_Offset.y
-      value: -0.43711805
+      value: -0.21452394
+      objectReference: {fileID: 0}
+    - target: {fileID: 3103962969948313472, guid: 9301bbbe28e60c04d9fb99c3f2690ea6, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3.2922354
+      objectReference: {fileID: 0}
+    - target: {fileID: 3103962969948313472, guid: 9301bbbe28e60c04d9fb99c3f2690ea6, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3.1875904
       objectReference: {fileID: 0}
     - target: {fileID: 3103962969948313472, guid: 9301bbbe28e60c04d9fb99c3f2690ea6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.42
+      value: 3.9
       objectReference: {fileID: 0}
     - target: {fileID: 3103962969948313472, guid: 9301bbbe28e60c04d9fb99c3f2690ea6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.1
+      value: -0.5158
       objectReference: {fileID: 0}
     - target: {fileID: 3103962969948313472, guid: 9301bbbe28e60c04d9fb99c3f2690ea6, type: 3}
       propertyPath: m_LocalPosition.z
@@ -12210,7 +12220,7 @@ SceneRoots:
   - {fileID: 758839787}
   - {fileID: 838062320}
   - {fileID: 3598596349738324098}
-  - {fileID: 1641182114}
   - {fileID: 1872569680}
+  - {fileID: 1641182114}
   - {fileID: 1702058722}
   - {fileID: 1011905150}

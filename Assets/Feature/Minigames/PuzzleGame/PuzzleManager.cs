@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PuzzleManager : MonoBehaviour
 {
     public static PuzzleManager Instance { get; private set; }
-
+    [SerializeField] Button SubmitBtt;
     [Header("Cấu hình Ma trận")]
     public int columns = 5;
     public int rows = 3;
@@ -23,19 +24,16 @@ public class PuzzleManager : MonoBehaviour
     private void Start()
     {
         InitGrid();
+        SubmitBtt.onClick.AddListener(OnSubmitPressed);
     }
 
-    private void Update()
+    private void OnSubmitPressed() 
     {
-        if (Keyboard.current.jKey.wasPressedThisFrame)
-        {
-            int score = ConfirmAndCalculateScore();
-            Debug.Log(score);
-        }
+        FinishMinigame();
     }
+
     private void InitGrid()
     {
-        // Tự động tìm tất cả PuzzleSlot ở các GameObject con nếu danh sách đang trống
         if (slots == null || slots.Count == 0)
         {
             slots = new List<PuzzleSlot>(GetComponentsInChildren<PuzzleSlot>());
@@ -43,7 +41,7 @@ public class PuzzleManager : MonoBehaviour
 
         if (slots.Count < columns * rows)
         {
-            Debug.LogError($"[PuzzleManager] Tìm thấy {slots.Count} ô, chưa đủ {columns * rows} ô (5x3)!");
+            Debug.LogError($"[PuzzleManager] Tìm thấy {slots.Count} ô, CHƯA ĐỦ {columns * rows} ô cho ma trận (5x3)!");
             return;
         }
 
@@ -56,8 +54,6 @@ public class PuzzleManager : MonoBehaviour
             slots[i].InitCoords(x, y);
             grid[x, y] = slots[i];
         }
-
-        Debug.Log($"[PuzzleManager] Khởi tạo thành công ma trận {columns}x{rows}!");
     }
 
     public void Select(PickUpFragment fragment)
@@ -69,23 +65,107 @@ public class PuzzleManager : MonoBehaviour
     {
         if (selectedFragment != null)
         {
-            if (slot.IsFilled) slot.Clear();
+            if (slot.IsFilled)
+            {
+                ReturnSlotItemToHolder(slot);
+            }
 
             slot.Fill(selectedFragment);
-            Destroy(selectedFragment.gameObject);
+
+            if (selectedFragment.IsCatalyst)
+            {
+                CatalystHolder.Instance.ConsumeCatalyst(selectedFragment.catalystData.catalystType);
+            }
+            else
+            {
+                FragmentHolder.Instance.RemoveFromHolder(selectedFragment);
+                Destroy(selectedFragment.gameObject);
+            }
+
             selectedFragment = null;
         }
         else if (slot.IsFilled)
         {
+            ReturnSlotItemToHolder(slot);
             slot.Clear();
-            Debug.Log($"Đã tháo mảnh tại ô ({slot.GridX}, {slot.GridY})");
         }
     }
 
-    // Nút xác nhận gọi hàm này
-    public int ConfirmAndCalculateScore()
+    private void ReturnSlotItemToHolder(PuzzleSlot slot)
     {
-        int totalScore = PuzzleScorer.CalculateTotalScore(grid, columns, rows);
-        return totalScore;
+        if (slot.IsPlacedCatalyst)
+        {
+            CatalystHolder.Instance.AddCatalystToHolder(slot.PlacedCatalystData);
+        }
+        else if (slot.PlacedFragmentData != null)
+        {
+            FragmentHolder.Instance.AddFragmentToHolder(slot.PlacedFragmentData);
+        }
+    }
+
+    // Kiểm tra xem tất cả các ô trên ma trận đã được lấp đầy chưa
+    public bool IsGridFullyFilled()
+    {
+        int filledCount = 0;
+        int totalRequired = columns * rows; // 5 x 3 = 15 ô
+
+        for (int x = 0; x < columns; x++)
+        {
+            for (int y = 0; y < rows; y++)
+            {
+                if (grid[x, y] != null && grid[x, y].IsFilled)
+                {
+                    filledCount++;
+                }
+            }
+        }
+
+        return filledCount == totalRequired;
+    }
+
+    // Nút HOÀN THÀNH (Nút Upload) gọi hàm này
+    public void FinishMinigame()
+    {
+        // 1. KIỂM TRA ĐIỀU KIỆN ĐỦ 15 MẢNH
+        if (!IsGridFullyFilled())
+        {
+            int totalRequired = columns * rows;
+            Debug.LogWarning($"[PuzzleManager] Chưa thể hoàn thành! Bạn cần đặt đủ {totalRequired} mảnh vào ma trận.");
+            return; // Dừng lại, không tính điểm và không xóa mảnh
+        }
+
+        // 2. TÍNH TOÁN LƯỢT VIEW VÀ TIỀN THƯỞNG
+        int totalViews = PuzzleScorer.CalculateTotalScore(grid, columns, rows);
+        int earnedMoney = totalViews / 50; // Chia 50 làm tròn xuống nguyên
+
+        // 3. DỌN DẸP SẠCH TOÀN BỘ MẢNH TRÊN MA TRẬN
+        ClearAllGridSlots();
+
+        // 4. HIỂN THỊ UI KẾT QUẢ
+        if (PuzzleResultUI.Instance != null)
+        {
+            PuzzleResultUI.Instance.DisplayResults(totalViews, earnedMoney);
+        }
+        else
+        {
+            Debug.LogError("[PuzzleManager] Không tìm thấy PuzzleResultUI Instance trong Scene!");
+        }
+    }
+
+    // Xóa tất cả mảnh trên ma trận
+    private void ClearAllGridSlots()
+    {
+        for (int x = 0; x < columns; x++)
+        {
+            for (int y = 0; y < rows; y++)
+            {
+                if (grid[x, y] != null && grid[x, y].IsFilled)
+                {
+                    grid[x, y].Clear();
+                }
+            }
+        }
+        selectedFragment = null;
+        Debug.Log("[PuzzleManager] Đã dọn sạch toàn bộ ma trận 5x3!");
     }
 }
