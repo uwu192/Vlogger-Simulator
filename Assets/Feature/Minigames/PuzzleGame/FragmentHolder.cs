@@ -9,9 +9,6 @@ public class FragmentHolder : MonoBehaviour
     [SerializeField] private Transform contentParent;
     [SerializeField] private GameObject pickUpPrefab;
 
-    [Header("Danh sách mảnh trong Inspector (Tạm thời)")]
-    [SerializeField] private List<FragmentData> initialFragments = new List<FragmentData>();
-
     private List<PickUpFragment> activeFragments = new List<PickUpFragment>();
 
     private void Awake()
@@ -20,59 +17,52 @@ public class FragmentHolder : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    private void Start()
+    // Load lại mảnh mỗi khi UI Holder này được bật lên
+    private void OnEnable()
     {
-        Debug.Log("[FragmentHolder] Bắt đầu khởi tạo kho Fragment...");
-        PopulateHolder();
+        RefreshHolderFromInventory();
     }
 
-    private void PopulateHolder()
+    // Đọc danh sách từ PlayerInventory và tạo UI Prefab tương ứng
+    public void RefreshHolderFromInventory()
     {
-        if (initialFragments == null || initialFragments.Count == 0)
+        // 1. Xóa các UI Item cũ nếu có
+        foreach (var item in activeFragments)
         {
-            Debug.LogWarning("[FragmentHolder] Danh sách 'initialFragments' trong Inspector đang TRỐNG! Hãy kéo Asset FragmentData vào.");
+            if (item != null) Destroy(item.gameObject);
+        }
+        activeFragments.Clear();
+
+        // 2. Lấy danh sách mảnh từ PlayerInventory
+        if (PlayerInventory.Instance == null)
+        {
+            Debug.LogWarning("[FragmentHolder] Chưa tìm thấy PlayerInventory Instance trong Scene!");
             return;
         }
 
-        int createdCount = 0;
-        foreach (var data in initialFragments)
+        List<FragmentData> collectedList = FragmentInventory.Instance.GetCollectedFragments();
+
+        // 3. Tạo UI cho từng mảnh thu thập được
+        foreach (var data in collectedList)
         {
-            if (data != null)
-            {
-                AddFragmentToHolder(data);
-                createdCount++;
-            }
-            else
-            {
-                Debug.LogWarning("[FragmentHolder] Phát hiện 1 ô FragmentData bị Null trong danh sách Inspector!");
-            }
+            AddFragmentToHolder(data);
         }
 
-        Debug.Log($"[FragmentHolder] Khởi tạo xong! Đã tạo <color=green>{createdCount}</color> mảnh Fragment vào kho.");
+        Debug.Log($"[FragmentHolder] Đã nạp thành công <color=green>{activeFragments.Count}</color> mảnh từ Inventory lên UI!");
     }
 
     public PickUpFragment AddFragmentToHolder(FragmentData data)
     {
-        if (pickUpPrefab == null)
-        {
-            Debug.LogError("[FragmentHolder] Thiếu 'pickUpPrefab'! Hãy kéo Prefab PickUpFragment vào Inspector của FragmentHolder.");
-            return null;
-        }
+        if (data == null || pickUpPrefab == null) return null;
 
         Transform parent = contentParent != null ? contentParent : transform;
-        if (contentParent == null)
-        {
-            Debug.LogWarning("[FragmentHolder] Chưa gán 'contentParent'! Đang đặt tạm item làm con của FragmentHolder.");
-        }
-
         GameObject obj = Instantiate(pickUpPrefab, parent);
+
         PickUpFragment item = obj.GetComponent<PickUpFragment>();
         if (item == null) item = obj.AddComponent<PickUpFragment>();
 
         item.SetupFragment(data);
         activeFragments.Add(item);
-
-        Debug.Log($"[FragmentHolder] Đã thêm mảnh '{data.fragmentName}' vào Holder UI.");
         return item;
     }
 
@@ -81,7 +71,6 @@ public class FragmentHolder : MonoBehaviour
         if (activeFragments.Contains(fragment))
         {
             activeFragments.Remove(fragment);
-            Debug.Log($"[FragmentHolder] Đã xóa 1 mảnh khỏi kho UI.");
         }
     }
 }
