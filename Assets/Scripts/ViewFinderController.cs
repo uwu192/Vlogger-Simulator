@@ -11,10 +11,10 @@ public class ViewfinderController : MonoBehaviour, IDragHandler
     [SerializeField] private Color poiDetectedColor = Color.green;
 
     [Header("Dò sóng & Hội tụ (Focus Lock-in)")]
-    [SerializeField] private float sensorRadius = 200f; // Vùng phát hiện
-    [SerializeField] private float maxScale = 4f; // Kích thước vòng ngắm khi ở xa
-    [SerializeField] private float minSpinSpeed = 20f; // Tốc độ xoay chậm khi ở ngoài rìa
-    [SerializeField] private float maxSpinSpeed = 350f; // Tốc độ xoay tít khi sát lõi
+    [SerializeField] private float sensorRadius = 200f;
+    [SerializeField] private float maxScale = 4f;
+    [SerializeField] private float minSpinSpeed = 20f;
+    [SerializeField] private float maxSpinSpeed = 350f;
 
     [Header("Camera & Di Chuyển")]
     [SerializeField] private Camera viewfinderCamera;
@@ -48,7 +48,8 @@ public class ViewfinderController : MonoBehaviour, IDragHandler
         {
             Bounds bounds = confinerCollider.bounds;
             float camHeight = viewfinderCamera.orthographicSize;
-            float camWidth = camHeight * viewfinderCamera.aspect;
+            float camWidth = camHeight * viewfinderCamera.aspect; // Đã sửa lỗi thiếu dấu *
+
             minX = bounds.min.x + camWidth;
             maxX = bounds.max.x - camWidth;
             minY = bounds.min.y + camHeight;
@@ -76,7 +77,9 @@ public class ViewfinderController : MonoBehaviour, IDragHandler
 
     private void Update()
     {
-        if (viewfinderCamera == null || crosshairRect == null) return;
+        // Thêm crosshairImage vào đây. 
+        // Nếu Camera, Crosshair Rect hoặc Crosshair Image bị xóa khi chuyển Scene, Update sẽ dừng ngay lập tức.
+        if (viewfinderCamera == null || crosshairRect == null || crosshairImage == null) return;
 
         Vector2 centerPoint = viewfinderCamera.transform.position;
         Collider2D exactHit = Physics2D.OverlapPoint(centerPoint, poiLayer);
@@ -87,7 +90,7 @@ public class ViewfinderController : MonoBehaviour, IDragHandler
             if (currentTargetPOI != exactHit.gameObject)
             {
                 currentTargetPOI = exactHit.gameObject;
-                if (crosshairImage != null) crosshairImage.color = poiDetectedColor;
+                crosshairImage.color = poiDetectedColor; // Không lo bị MissingReference nữa
                 if (captureButton != null) captureButton.interactable = true;
             }
             crosshairRect.localScale = Vector3.one;
@@ -109,30 +112,23 @@ public class ViewfinderController : MonoBehaviour, IDragHandler
                 float distance = Vector2.Distance(centerPoint, targetCenter);
                 float intensity = 1f - Mathf.Clamp01(distance / sensorRadius);
 
-                // Toán học lấy từ biến Inspector
                 float scaleVal = Mathf.Lerp(maxScale, 1f, intensity);
                 crosshairRect.localScale = new Vector3(scaleVal, scaleVal, 1f);
 
                 float spinSpeed = Mathf.Lerp(minSpinSpeed, maxSpinSpeed, intensity);
                 crosshairRect.Rotate(0, 0, spinSpeed * Time.deltaTime);
 
-                if (crosshairImage != null)
-                {
-                    Color hintColor = normalColor;
-                    hintColor.a = Mathf.Lerp(0f, 1f, intensity);
-                    crosshairImage.color = hintColor;
-                }
+                Color hintColor = normalColor;
+                hintColor.a = Mathf.Lerp(0f, 1f, intensity);
+                crosshairImage.color = hintColor;
             }
             else
             {
                 // NGOÀI VÙNG
                 crosshairRect.localScale = Vector3.one;
-                if (crosshairImage != null)
-                {
-                    Color hiddenColor = normalColor;
-                    hiddenColor.a = 0f;
-                    crosshairImage.color = hiddenColor;
-                }
+                Color hiddenColor = normalColor;
+                hiddenColor.a = 0f;
+                crosshairImage.color = hiddenColor;
             }
         }
     }
@@ -141,29 +137,33 @@ public class ViewfinderController : MonoBehaviour, IDragHandler
     {
         if (currentTargetPOI != null)
         {
-            Debug.Log("📸 Đã chụp thành công: " + currentTargetPOI.name);
+            // Lấy component POI từ vật thể đang ngắm
+            POI poiComponent = currentTargetPOI.GetComponent<POI>();
 
-            // 1. Tắt vật thể POI đi (coi như đã thu thập xong)
+            if (poiComponent != null && poiComponent.fragmentData != null)
+            {
+                // Thêm mảnh vào PlayerInventory
+                FragmentInventory.Instance.AddFragment(poiComponent.fragmentData);
+                Debug.Log($"📸 Chụp thành công: {currentTargetPOI.name} -> Đã lưu mảnh '{poiComponent.fragmentData.fragmentName}' vào kho!");
+            }
+            else
+            {
+                Debug.LogWarning($"📸 Chụp {currentTargetPOI.name} nhưng không tìm thấy Component POI hoặc FragmentData!");
+            }
+
+            // Tắt vật thể POI trên Scene
             currentTargetPOI.SetActive(false);
-            // Nếu bạn muốn xóa hẳn nó khỏi bộ nhớ thì dùng: Destroy(currentTargetPOI);
-
-            // 2. Xóa trí nhớ của hệ thống ngắm
             currentTargetPOI = null;
 
-            // 3. Tắt nút chụp
             if (captureButton != null) captureButton.interactable = false;
 
-            // 4. Ép tâm ngắm tàng hình ngay lập tức (tránh bị kẹt bóng mờ)
             if (crosshairRect != null) crosshairRect.localScale = Vector3.one;
             if (crosshairImage != null)
             {
                 Color hiddenColor = normalColor;
-                hiddenColor.a = 0f; // Trả alpha về 0
+                hiddenColor.a = 0f;
                 crosshairImage.color = hiddenColor;
             }
-
-            // GỢI Ý MỞ RỘNG: Chỗ này có thể gọi hàm phát âm thanh "Tách!", 
-            // chớp trắng màn hình, hoặc cộng điểm cho nhân vật.
         }
     }
 }

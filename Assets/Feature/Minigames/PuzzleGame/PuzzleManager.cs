@@ -126,29 +126,22 @@ public class PuzzleManager : MonoBehaviour
     // Nút HOÀN THÀNH (Nút Upload) gọi hàm này
     public void FinishMinigame()
     {
-        // 1. KIỂM TRA ĐIỀU KIỆN ĐỦ 15 MẢNH
-        if (!IsGridFullyFilled())
+        if (!IsGridFullyFilled()) return;
+
+        int totalViews = PuzzleScorer.CalculateTotalScore(grid, columns, rows);
+        int earnedMoney = totalViews / 50;
+
+        // CỘNG TIỀN CHO NGƯỜI CHƠI
+        if (PlayerManager.Instance != null)
         {
-            int totalRequired = columns * rows;
-            Debug.LogWarning($"[PuzzleManager] Chưa thể hoàn thành! Bạn cần đặt đủ {totalRequired} mảnh vào ma trận.");
-            return; // Dừng lại, không tính điểm và không xóa mảnh
+            PlayerManager.Instance.AddMoney(earnedMoney);
         }
 
-        // 2. TÍNH TOÁN LƯỢT VIEW VÀ TIỀN THƯỞNG
-        int totalViews = PuzzleScorer.CalculateTotalScore(grid, columns, rows);
-        int earnedMoney = totalViews / 50; // Chia 50 làm tròn xuống nguyên
-
-        // 3. DỌN DẸP SẠCH TOÀN BỘ MẢNH TRÊN MA TRẬN
         ClearAllGridSlots();
 
-        // 4. HIỂN THỊ UI KẾT QUẢ
         if (PuzzleResultUI.Instance != null)
         {
             PuzzleResultUI.Instance.DisplayResults(totalViews, earnedMoney);
-        }
-        else
-        {
-            Debug.LogError("[PuzzleManager] Không tìm thấy PuzzleResultUI Instance trong Scene!");
         }
     }
 

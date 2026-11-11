@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd162113b32ef9045a0a87ee54bb85ac, type: 3}
+  m_Name: HaNoi
+  m_EditorClassIdentifier: Assembly-CSharp::DestinationInfo
+  image: {fileID: 939606827191351176, guid: 2001477b479bcad4bbb5910ed509e4f2, type: 3}
+  destinationName: "H\xE0 N\u1ED9i"
+  country: 0
+  unlockCost: 0
+  sceneToLoad: HaNoi
